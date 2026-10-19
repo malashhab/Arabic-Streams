@@ -1,0 +1,22 @@
+services:
+  arabic-addon:
+    build: .
+    container_name: arabic_addon
+    restart: unless-stopped
+    ports:
+      - "7100:7100"
+    env_file:
+      - .env
+    environment:
+      - PORT=7100
+      - NODE_ENV=production
+    volumes:
+      - arabic-addon-data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  arabic-addon-data:

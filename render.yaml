@@ -1,0 +1,25 @@
+# Render Blueprint (free web service). Secrets are entered in the Render dashboard, never committed.
+services:
+  - type: web
+    name: arabic-addon
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: LOG_LEVEL
+        value: info
+      # Render's disk is wiped on every restart, so the secret MUST be set here (otherwise every install link breaks).
+      - key: CONFIG_SECRET
+        sync: false
+      - key: TMDB_READ_TOKEN
+        sync: false
+      # Optional: public https address of your Prowlarr (see README); leave empty to use only Internet Archive.
+      - key: TORZNAB_URL
+        sync: false
+      - key: TORZNAB_API_KEY
+        sync: false
